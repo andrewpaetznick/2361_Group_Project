@@ -70,9 +70,10 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xce           0x135  (309)
-.text                        0x2ce                0x84            0xc6  (198)
+.const                       0x2ce                 0x4             0x6  (6)
+.text                        0x2d2                0xba           0x117  (279)
 
-                 Total "program" memory used (bytes):          0x1fb  (507) <1%
+                 Total "program" memory used (bytes):          0x252  (594) <1%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
@@ -99,14 +100,16 @@ External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00023c                  __psv_init
-                  0x000252                  __data_init
                   0x000252                  __data_init_standard
+                  0x000252                  __data_init
                   0x0002c8                  __DefaultInterrupt
-                  0x0002ce                  _init_uart
-                  0x000328                  _setup
-                  0x000330                  _main
-                  0x000344                  _arp_delay_1ms
-                  0x00034c                  _arp_delay_100us
+                  0x0002d2                  _init_uart
+                  0x00032c                  _send_str
+                  0x000352                  _send_command
+                  0x000362                  _setup
+                  0x00036a                  _main
+                  0x00037e                  _arp_delay_1ms
+                  0x000386                  _arp_delay_100us
 
 External Symbols in Program Memory (by name):
 
@@ -115,11 +118,13 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x00034c                  _arp_delay_100us
-                  0x000344                  _arp_delay_1ms
-                  0x0002ce                  _init_uart
-                  0x000330                  _main
-                  0x000328                  _setup
+                  0x000386                  _arp_delay_100us
+                  0x00037e                  _arp_delay_1ms
+                  0x0002d2                  _init_uart
+                  0x00036a                  _main
+                  0x000352                  _send_command
+                  0x00032c                  _send_str
+                  0x000362                  _setup
 
 Memory Configuration
 
@@ -196,29 +201,29 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000        0xc73
+.debug_info       0x000000        0xcf5
  *(.debug_info)
  .debug_info      0x000000        0x39d build/default/debug/project_main.o
- .debug_info      0x00039d        0x838 build/default/debug/uart_lib.o
- .debug_info      0x000bd5         0x9e build/default/debug/delay.o
+ .debug_info      0x00039d        0x8ba build/default/debug/uart_lib.o
+ .debug_info      0x000c57         0x9e build/default/debug/delay.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x1cb
+.debug_abbrev     0x000000        0x212
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0xf4 build/default/debug/project_main.o
- .debug_abbrev    0x0000f4         0xc3 build/default/debug/uart_lib.o
- .debug_abbrev    0x0001b7         0x14 build/default/debug/delay.o
+ .debug_abbrev    0x0000f4        0x10a build/default/debug/uart_lib.o
+ .debug_abbrev    0x0001fe         0x14 build/default/debug/delay.o
 
-.debug_line       0x000000        0x264
+.debug_line       0x000000        0x26f
  *(.debug_line)
  .debug_line      0x000000        0x113 build/default/debug/project_main.o
- .debug_line      0x000113        0x117 build/default/debug/uart_lib.o
- .debug_line      0x00022a         0x3a build/default/debug/delay.o
+ .debug_line      0x000113        0x122 build/default/debug/uart_lib.o
+ .debug_line      0x000235         0x3a build/default/debug/delay.o
 
-.debug_frame      0x000000         0x76
+.debug_frame      0x000000         0xaa
  *(.debug_frame)
  .debug_frame     0x000000         0x48 build/default/debug/project_main.o
- .debug_frame     0x000048         0x2e build/default/debug/uart_lib.o
+ .debug_frame     0x000048         0x62 build/default/debug/uart_lib.o
 
 .debug_str        0x000000         0x35
  *(.debug_str)
@@ -232,12 +237,12 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0x45
+                  0x000000         0x63
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x25 build/default/debug/project_main.o
  .debug_pubnames
-                  0x000025         0x20 build/default/debug/uart_lib.o
+                  0x000025         0x3e build/default/debug/uart_lib.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -855,12 +860,17 @@ __c30_signature
  __c30_signature
                   0x000141          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
-.text             0x0002ce         0x84
- .text            0x0002ce         0x5a build/default/debug/uart_lib.o
-                  0x0002ce                  _init_uart
- .text            0x000328         0x1c build/default/debug/project_main.o
-                  0x000328                  _setup
-                  0x000330                  _main
- .text            0x000344          0xe build/default/debug/delay.o
-                  0x000344                  _arp_delay_1ms
-                  0x00034c                  _arp_delay_100us
+.const              0x82ce          0x4 load address 0x0002ce  
+ .const             0x82ce          0x4 build/default/debug/uart_lib.o
+
+.text             0x0002d2         0xba
+ .text            0x0002d2         0x90 build/default/debug/uart_lib.o
+                  0x0002d2                  _init_uart
+                  0x00032c                  _send_str
+                  0x000352                  _send_command
+ .text            0x000362         0x1c build/default/debug/project_main.o
+                  0x000362                  _setup
+                  0x00036a                  _main
+ .text            0x00037e          0xe build/default/debug/delay.o
+                  0x00037e                  _arp_delay_1ms
+                  0x000386                  _arp_delay_100us

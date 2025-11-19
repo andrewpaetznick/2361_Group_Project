@@ -37,3 +37,18 @@ void init_uart(){
 
     U1TXREG = 'a';            // Transmit one character
 }
+
+void send_str(char* str) {
+    for(int i = 0; i < sizeof(str); i++){
+        U1TXREG = str[i];
+        //wait until char is sent?
+        arp_delay_100us();
+        arp_delay_100us();
+    }
+}
+
+void send_command(char* command) {
+    //all commands start with AT+ and are groups of chars
+    send_str("AT");
+    send_str(command);
+}
