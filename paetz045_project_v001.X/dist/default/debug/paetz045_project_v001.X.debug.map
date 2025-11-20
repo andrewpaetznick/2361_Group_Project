@@ -4,6 +4,11 @@ Tool Name:
   c:\program files\microchip\xc16\v2.10\bin\bin\..\bin/elf-ld.exe
 
 Command:
+  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp000080a8.00 \
+  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp000080a8.01 \
+  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp000080a8.02 \
+  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp000080a8.03 \
+  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp000080a8.04 \
   -p24FJ64GA002 \
   --mdfp=C:/Program Files/Microchip/MPLABX/v6.25/packs/Microchip/PIC24F-GA-GB_DFP/1.10.375/xc16 \
   -o \
@@ -24,8 +29,7 @@ Command:
   --defsym=__MPLAB_BUILD=1 \
   --defsym=__MPLAB_DEBUG=1 \
   --defsym=__DEBUG=1 \
-  --defsym=__MPLAB_DEBUGGER_SIMULATOR=1 \
-  -Tp24FJ64GA002.gld.00 \
+  -Tp24FJ64GA002.gld.05 \
   --stack=16 \
   --check-sections \
   --data-init \
@@ -70,18 +74,23 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xce           0x135  (309)
-.const                       0x2ce                 0x4             0x6  (6)
-.text                        0x2d2                0xba           0x117  (279)
+.const                       0x2ce                 0xa             0xf  (15)
+.text                        0x2d8                0xfa           0x177  (375)
 
-                 Total "program" memory used (bytes):          0x252  (594) <1%
+                 Total "program" memory used (bytes):          0x2bb  (699) 1%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
+reserve_data_0x800           0x800                0x20            0x20  (32)
+reserve_data_0x820           0x820                 0x2             0x2  (2)
+reserve_data_0x822           0x822                 0x2             0x2  (2)
+reserve_data_0x824           0x824                 0x2             0x2  (2)
+reserve_data_0x826           0x826                0x2a            0x2a  (42)
 
-                 Total "data" memory used (bytes):              0  (0) 
+                 Total "data" memory used (bytes):           0x50  (80) <1%
 
 
 Dynamic Memory Usage
@@ -89,9 +98,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x800                              0x2000  (8192)
+stack                        0x850                              0x1fb0  (8112)
 
-                 Maximum dynamic memory (bytes):         0x2000  (8192)
+                 Maximum dynamic memory (bytes):         0x1fb0  (8112)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
@@ -103,13 +112,13 @@ External Symbols in Program Memory (by address):
                   0x000252                  __data_init_standard
                   0x000252                  __data_init
                   0x0002c8                  __DefaultInterrupt
-                  0x0002d2                  _init_uart
-                  0x00032c                  _send_str
-                  0x000352                  _send_command
-                  0x000362                  _setup
-                  0x00036a                  _main
-                  0x00037e                  _arp_delay_1ms
-                  0x000386                  _arp_delay_100us
+                  0x0002d8                  _init_uart
+                  0x000340                  _send_str
+                  0x000380                  _send_command
+                  0x000394                  _setup
+                  0x0003a8                  _main
+                  0x0003c4                  _arp_delay_1ms
+                  0x0003cc                  _arp_delay_100us
 
 External Symbols in Program Memory (by name):
 
@@ -118,13 +127,13 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000386                  _arp_delay_100us
-                  0x00037e                  _arp_delay_1ms
-                  0x0002d2                  _init_uart
-                  0x00036a                  _main
-                  0x000352                  _send_command
-                  0x00032c                  _send_str
-                  0x000362                  _setup
+                  0x0003cc                  _arp_delay_100us
+                  0x0003c4                  _arp_delay_1ms
+                  0x0002d8                  _init_uart
+                  0x0003a8                  _main
+                  0x000380                  _send_command
+                  0x000340                  _send_str
+                  0x000394                  _setup
 
 Memory Configuration
 
@@ -141,13 +150,37 @@ CONFIG1          0x00abfe           0x000002
 
 Linker script and memory map
 
+
+reserve_data_0x800
+                    0x0800         0x20
+                    0x0820                  . = 0x20
+ *fill*             0x0800         0x2000
+
+reserve_data_0x820
+                    0x0820          0x2
+                    0x0822                  . = 0x2
+ *fill*             0x0820          0x200
+
+reserve_data_0x822
+                    0x0822          0x2
+                    0x0824                  . = 0x2
+ *fill*             0x0822          0x200
+
+reserve_data_0x824
+                    0x0824          0x2
+                    0x0826                  . = 0x2
+ *fill*             0x0824          0x200
+
+reserve_data_0x826
+                    0x0826         0x2a
+                    0x0850                  . = 0x2a
+ *fill*             0x0826         0x2a00
 LOAD build/default/debug/project_main.o
 LOAD build/default/debug/uart_lib.o
 LOAD build/default/debug/delay.o
                     0x0001                  __MPLAB_BUILD = 0x1
                     0x0001                  __MPLAB_DEBUG = 0x1
                     0x0001                  __DEBUG = 0x1
-                    0x0001                  __MPLAB_DEBUGGER_SIMULATOR = 0x1
 LOAD pPIC24Fxxx
 LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
                     0xabfc                  __CONFIG2 = 0xabfc
@@ -201,34 +234,34 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000        0xcf5
+.debug_info       0x000000       0x1013
  *(.debug_info)
- .debug_info      0x000000        0x39d build/default/debug/project_main.o
- .debug_info      0x00039d        0x8ba build/default/debug/uart_lib.o
- .debug_info      0x000c57         0x9e build/default/debug/delay.o
+ .debug_info      0x000000        0x4fb build/default/debug/project_main.o
+ .debug_info      0x0004fb        0xa7a build/default/debug/uart_lib.o
+ .debug_info      0x000f75         0x9e build/default/debug/delay.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x212
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0xf4 build/default/debug/project_main.o
- .debug_abbrev    0x0000f4        0x10a build/default/debug/uart_lib.o
+ .debug_abbrev    0x000000         0xeb build/default/debug/project_main.o
+ .debug_abbrev    0x0000eb        0x113 build/default/debug/uart_lib.o
  .debug_abbrev    0x0001fe         0x14 build/default/debug/delay.o
 
-.debug_line       0x000000        0x26f
+.debug_line       0x000000        0x276
  *(.debug_line)
- .debug_line      0x000000        0x113 build/default/debug/project_main.o
- .debug_line      0x000113        0x122 build/default/debug/uart_lib.o
- .debug_line      0x000235         0x3a build/default/debug/delay.o
+ .debug_line      0x000000        0x117 build/default/debug/project_main.o
+ .debug_line      0x000117        0x125 build/default/debug/uart_lib.o
+ .debug_line      0x00023c         0x3a build/default/debug/delay.o
 
 .debug_frame      0x000000         0xaa
  *(.debug_frame)
  .debug_frame     0x000000         0x48 build/default/debug/project_main.o
  .debug_frame     0x000048         0x62 build/default/debug/uart_lib.o
 
-.debug_str        0x000000         0x35
+.debug_str        0x000000         0x4a
  *(.debug_str)
- .debug_str       0x000000          0xa build/default/debug/project_main.o
- .debug_str       0x00000a         0x2b build/default/debug/uart_lib.o
+ .debug_str       0x000000         0x15 build/default/debug/project_main.o
+ .debug_str       0x000015         0x35 build/default/debug/uart_lib.o
 
 .debug_loc
  *(.debug_loc)
@@ -843,34 +876,35 @@ OUTPUT(dist/default/debug/paetz045_project_v001.X.debug.elf elf32-pic30)
 LOAD default_isr
 
 .debug_pubtypes
-                  0x000050         0xdf
+                  0x000050        0x11f
  .debug_pubtypes
-                  0x000050         0x3e build/default/debug/project_main.o
+                  0x000050         0x5f build/default/debug/project_main.o
  .debug_pubtypes
-                  0x00008e         0xa1 build/default/debug/uart_lib.o
+                  0x0000af         0xc0 build/default/debug/uart_lib.o
 
 __c30_signature
-                  0x00012f         0x18
+                  0x00016f         0x18
  __c30_signature
-                  0x00012f          0x6 build/default/debug/project_main.o
+                  0x00016f          0x6 build/default/debug/project_main.o
  __c30_signature
-                  0x000135          0x6 build/default/debug/uart_lib.o
+                  0x000175          0x6 build/default/debug/uart_lib.o
  __c30_signature
-                  0x00013b          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+                  0x00017b          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x000141          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+                  0x000181          0x6 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
-.const              0x82ce          0x4 load address 0x0002ce  
- .const             0x82ce          0x4 build/default/debug/uart_lib.o
+.const              0x82ce          0xa load address 0x0002ce  
+ .const             0x82ce          0x8 build/default/debug/uart_lib.o
+ .const             0x82d6          0x2 build/default/debug/project_main.o
 
-.text             0x0002d2         0xba
- .text            0x0002d2         0x90 build/default/debug/uart_lib.o
-                  0x0002d2                  _init_uart
-                  0x00032c                  _send_str
-                  0x000352                  _send_command
- .text            0x000362         0x1c build/default/debug/project_main.o
-                  0x000362                  _setup
-                  0x00036a                  _main
- .text            0x00037e          0xe build/default/debug/delay.o
-                  0x00037e                  _arp_delay_1ms
-                  0x000386                  _arp_delay_100us
+.text             0x0002d8         0xfa
+ .text            0x0002d8         0xbc build/default/debug/uart_lib.o
+                  0x0002d8                  _init_uart
+                  0x000340                  _send_str
+                  0x000380                  _send_command
+ .text            0x000394         0x30 build/default/debug/project_main.o
+                  0x000394                  _setup
+                  0x0003a8                  _main
+ .text            0x0003c4          0xe build/default/debug/delay.o
+                  0x0003c4                  _arp_delay_1ms
+                  0x0003cc                  _arp_delay_100us

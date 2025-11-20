@@ -14,6 +14,8 @@ void init_uart(){
      * RB6 is tx, RB10 rx
      * default of 9600 baud
      */
+    //RB5 State Setup, pulled down on board by 10k
+    TRISBbits.TRISB5 = 1;      // Set RB5 as input
     
     //PPS Setup copied from Slides
     __builtin_write_OSCCONL(OSCCON & 0xbf); // unlock PPS
@@ -23,6 +25,7 @@ void init_uart(){
     
     //UART Setup
     //PPS Stuff above here!
+    U1MODEbits.UARTEN = 0;
     U1MODEbits.PDSEL = 0;   // No Parity, 8-data bits (i.e., 8N1)
     U1MODEbits.STSEL = 0;   // 1-stop bit (i.e., 8N1)
     U1MODEbits.BRGH = 0;    // Standard-Speed mode
@@ -31,24 +34,25 @@ void init_uart(){
     U1MODEbits.UARTEN = 1;  // Enable UART
     U1STAbits.UTXEN = 1;    // Enable UART TX
     
-    // Wait at least 105us = (1/9600)
-    arp_delay_100us();
-    arp_delay_100us();
-
-    U1TXREG = 'a';            // Transmit one character
-}
-
-void send_str(char* str) {
-    for(int i = 0; i < sizeof(str); i++){
-        U1TXREG = str[i];
-        //wait until char is sent?
-        arp_delay_100us();
-        arp_delay_100us();
+    // Wait at least 500ms startup
+    for(int i = 0; i < 500; i++){
+        arp_delay_1ms();
     }
 }
 
-void send_command(char* command) {
+void send_str(const char* str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        //wait until last char is sent
+        while (U1STAbits.UTXBF);
+        U1TXREG = str[i];
+    }
+    while (!U1STAbits.TRMT);   // wait for shift reg to empty
+}
+
+void send_command(const char* command) {
     //all commands start with AT+ and are groups of chars
-    send_str("AT");
+    send_str("AT+");
     send_str(command);
+    //tells the chip the send is over
+    send_str("\r\n");
 }

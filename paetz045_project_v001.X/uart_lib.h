@@ -14,7 +14,7 @@ extern "C" {
 
 
 void init_uart(void);
-
+void send_command(const char* command);
 
 #ifdef	__cplusplus
 }

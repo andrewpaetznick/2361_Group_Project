@@ -11,18 +11,22 @@
 #include "delay.h"
 
 void setup(){
+    AD1PCFG = 0xffff;   //all digital
+    CLKDIVbits.RCDIV = 0;
     init_uart();
 }
 
 int main(void) {
     setup();
+    send_command("");
+    char ReceivedChar = 'n';
     while(1){
-        char ReceivedChar;
         if (U1STAbits.URXDA == 1) {
             ReceivedChar = U1RXREG;
         }
-
+        
         arp_delay_1ms();
+
     }
     return 0;
 }
