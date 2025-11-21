@@ -29,6 +29,7 @@
 #include "xc.h"
 #include <stdio.h>
 
+#include "uart_chat.h"
 #include "uart_lib.h"
 
 void setup();
@@ -46,21 +47,29 @@ void setup(){
     CLKDIVbits.RCDIV = 0;
     
     //UART Setup
-    init_uart();
-    
+    //init_uart();
+    HM10_init();
     //sending a basic command
-    send_command("");
+    //send_command("");
+        delay(1000);  // HM10 startup time
+
 }
 
 void loop(){
-//    unsigned long last_call = 0;
-	char ReceivedChar = 'n';
-    while(1){
-        
-        if (U1STAbits.URXDA == 1) {
-            ReceivedChar = U1RXREG;
+    int count = 0;
+    while(1)
+    {
+        if (HM10_testModule())
+        {
+            HM10_sendStr("PIC24 ? HM10 OK!\r\n");
+            count++;
         }
-        delay(500);
-        send_command("ADDR?");
+        else
+        {
+            HM10_sendStr("No response from HM10\r\n");
+            count--;
+        }
+
+        delay(1000);
     }
 }

@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=project_main.c uart_lib.c delay.s
+SOURCEFILES_QUOTED_IF_SPACED=project_main.c uart_lib.c delay.s uart_chat.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/project_main.o ${OBJECTDIR}/uart_lib.o ${OBJECTDIR}/delay.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/project_main.o.d ${OBJECTDIR}/uart_lib.o.d ${OBJECTDIR}/delay.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/project_main.o ${OBJECTDIR}/uart_lib.o ${OBJECTDIR}/delay.o ${OBJECTDIR}/uart_chat.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/project_main.o.d ${OBJECTDIR}/uart_lib.o.d ${OBJECTDIR}/delay.o.d ${OBJECTDIR}/uart_chat.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/project_main.o ${OBJECTDIR}/uart_lib.o ${OBJECTDIR}/delay.o
+OBJECTFILES=${OBJECTDIR}/project_main.o ${OBJECTDIR}/uart_lib.o ${OBJECTDIR}/delay.o ${OBJECTDIR}/uart_chat.o
 
 # Source Files
-SOURCEFILES=project_main.c uart_lib.c delay.s
+SOURCEFILES=project_main.c uart_lib.c delay.s uart_chat.c
 
 
 
@@ -101,6 +101,12 @@ ${OBJECTDIR}/uart_lib.o: uart_lib.c  .generated_files/flags/default/62ee555c026c
 	@${RM} ${OBJECTDIR}/uart_lib.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  uart_lib.c  -o ${OBJECTDIR}/uart_lib.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/uart_lib.o.d"      -g -D__DEBUG     -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/uart_chat.o: uart_chat.c  .generated_files/flags/default/b1e36d473067882949b061fbe8bc850b795f1984 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/uart_chat.o.d 
+	@${RM} ${OBJECTDIR}/uart_chat.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  uart_chat.c  -o ${OBJECTDIR}/uart_chat.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/uart_chat.o.d"      -g -D__DEBUG     -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
 else
 ${OBJECTDIR}/project_main.o: project_main.c  .generated_files/flags/default/194cf9161cd38e29c80cfac96c6704d10a525f0f .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
@@ -113,6 +119,12 @@ ${OBJECTDIR}/uart_lib.o: uart_lib.c  .generated_files/flags/default/d5583ec8d471
 	@${RM} ${OBJECTDIR}/uart_lib.o.d 
 	@${RM} ${OBJECTDIR}/uart_lib.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  uart_lib.c  -o ${OBJECTDIR}/uart_lib.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/uart_lib.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/uart_chat.o: uart_chat.c  .generated_files/flags/default/bccb3e28f2dd0a8a9926227b7aa53209f5bce0b5 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/uart_chat.o.d 
+	@${RM} ${OBJECTDIR}/uart_chat.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  uart_chat.c  -o ${OBJECTDIR}/uart_chat.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/uart_chat.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 
