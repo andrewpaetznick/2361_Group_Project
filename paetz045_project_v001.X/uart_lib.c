@@ -8,6 +8,7 @@
 #include "xc.h"
 #include "delay.h"
 
+void delay(int ms_delay);
 
 void init_uart(){
     /**
@@ -35,9 +36,7 @@ void init_uart(){
     U1STAbits.UTXEN = 1;    // Enable UART TX
     
     // Wait at least 500ms startup
-    for(int i = 0; i < 500; i++){
-        arp_delay_1ms();
-    }
+    delay(500);
 }
 
 void send_str(const char* str) {
@@ -55,4 +54,11 @@ void send_command(const char* command) {
     send_str(command);
     //tells the chip the send is over
     send_str("\r\n");
+}
+
+void delay(int ms_delay) {
+    //ms delay 
+    for(int i = 0; i < ms_delay; i++) {
+        arp_delay_1ms();
+    }
 }
