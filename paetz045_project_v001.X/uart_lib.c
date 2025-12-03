@@ -21,7 +21,7 @@ void init_uart(){
     //PPS Setup copied from Slides
     __builtin_write_OSCCONL(OSCCON & 0xbf); // unlock PPS
     _RP6R = 0x0003;   // RB6->UART1:U1TX
-    _U1RXR = 10;   // RB10->UART1:U1RX
+    _U1RXR = 8;    // RB8 = RP8 as U1RX
     __builtin_write_OSCCONL(OSCCON | 0x40); // lock   PPS
     
     //UART Setup
@@ -42,7 +42,7 @@ void init_uart(){
 void send_str(const char* str) {
     for (int i = 0; str[i] != '\0'; i++) {
         //wait until last char is sent
-        while (U1STAbits.UTXBF);
+        while (U1STAbits.UTXBF == 1);
         U1TXREG = str[i];
     }
     while (!U1STAbits.TRMT);   // wait for shift reg to empty
