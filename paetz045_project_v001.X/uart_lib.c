@@ -52,8 +52,8 @@ void send_command(const char* command) {
     //all commands start with AT+ and are groups of chars
     send_str("AT+");
     send_str(command);
-    //tells the chip the send is over
-    send_str("\r\n");
+    //tells the chip the send is over; not needed in our module
+    //send_str("\r\n");
 }
 
 void delay(int ms_delay) {

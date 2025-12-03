@@ -31,8 +31,14 @@
 
 #include "uart_lib.h"
 
+//1 for master 0 for slave other is phone
+#define ROLE 2
+
 void setup();
 void loop();
+void AT_SLAVE();
+void AT_MASTER();
+void AT_PHONE();
 
 int main(void) {
     setup();
@@ -49,18 +55,70 @@ void setup(){
     init_uart();
     
     //sending a basic command
+    char ReceivedChar = 'n';
     send_command("");
+    delay(500);
+    if (U1STAbits.URXDA == 1) {
+            ReceivedChar = U1RXREG;
+    }
+    send_command("ADDR?");
+    delay(500);
+    if (U1STAbits.URXDA == 1) {
+            ReceivedChar = U1RXREG;
+    }
+    if(ROLE == 1) {
+        AT_MASTER();
+    }
+    else if(ROLE == 0) {
+        AT_SLAVE();
+    }
+    else {
+        AT_PHONE();
+    }
 }
 
 void loop(){
 //    unsigned long last_call = 0;
-	char ReceivedChar = 'n';
     while(1){
-        
-        if (U1STAbits.URXDA == 1) {
-            ReceivedChar = U1RXREG;
-        }
+        send_str("Hello from PIC!\n");
+
+        //send_str("Connected?")
         delay(500);
-        send_command("ADDR?");
+        
     }
+}
+
+
+void AT_SLAVE(){
+    /*
+    AT
+    AT+ROLE0      // Peripheral
+    AT+RESET
+    AT+IMME1      // Wait in AT mode until connected
+    AT+NAMEHM_B   // Optional: rename
+    AT+RESET
+     */
+}
+
+void AT_MASTER(){
+    //needs ADDR for SLAVE using AT+ADDR?
+    
+    /*
+    AT
+    AT+ROLE1            // Central
+    AT+RESET
+    AT+IMME1            // Start in AT mode after reset
+    AT+NAMEHM_A         // Optional naming
+    AT+RESET
+     */
+    //AT+CONA1B2C3D4E5F6 example address with no colons
+    //should recieve OK+CONN
+    
+    //disconnect using AT+DISC
+}
+
+void AT_PHONE() {
+    send_command("ROLE0");     // peripheral
+    send_command("IMME1");     // start in AT mode, wait for connection
+    send_command("RESET");     //resets and begins waiting
 }

@@ -4,11 +4,11 @@ Tool Name:
   c:\program files\microchip\xc16\v2.10\bin\bin\..\bin/elf-ld.exe
 
 Command:
-  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp00006160.00 \
-  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp00006160.01 \
-  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp00006160.02 \
-  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp00006160.03 \
-  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp00006160.04 \
+  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp00002310.00 \
+  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp00002310.01 \
+  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp00002310.02 \
+  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp00002310.03 \
+  -TC:\\Users\\andre\\AppData\\Local\\Temp\\tmp00002310.04 \
   -p24FJ64GA002 \
   --mdfp=C:/Program Files/Microchip/MPLABX/v6.25/packs/Microchip/PIC24F-GA-GB_DFP/1.10.375/xc16 \
   -o \
@@ -74,10 +74,10 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xce           0x135  (309)
-.const                       0x2ce                0x10            0x18  (24)
-.text                        0x2de               0x116           0x1a1  (417)
+.const                       0x2ce                0x2e            0x45  (69)
+.text                        0x2fc               0x14a           0x1ef  (495)
 
-                 Total "program" memory used (bytes):          0x2ee  (750) 1%
+                 Total "program" memory used (bytes):          0x369  (873) 1%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
@@ -112,32 +112,38 @@ External Symbols in Program Memory (by address):
                   0x000252                  __data_init_standard
                   0x000252                  __data_init
                   0x0002c8                  __DefaultInterrupt
-                  0x0002de                  _init_uart
-                  0x000338                  _send_str
-                  0x000378                  _send_command
-                  0x00038c                  _delay
-                  0x0003a6                  _main
-                  0x0003b2                  _setup
-                  0x0003ca                  _loop
-                  0x0003e6                  _arp_delay_1ms
-                  0x0003ee                  _arp_delay_100us
+                  0x0002fc                  _init_uart
+                  0x000356                  _send_str
+                  0x000396                  _send_command
+                  0x0003a6                  _delay
+                  0x0003c0                  _main
+                  0x0003cc                  _setup
+                  0x00040e                  _loop
+                  0x00041a                  _AT_SLAVE
+                  0x000420                  _AT_MASTER
+                  0x000426                  _AT_PHONE
+                  0x000438                  _arp_delay_1ms
+                  0x000440                  _arp_delay_100us
 
 External Symbols in Program Memory (by name):
 
+                  0x000420                  _AT_MASTER
+                  0x000426                  _AT_PHONE
+                  0x00041a                  _AT_SLAVE
                   0x0002c8                  __DefaultInterrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0003ee                  _arp_delay_100us
-                  0x0003e6                  _arp_delay_1ms
-                  0x00038c                  _delay
-                  0x0002de                  _init_uart
-                  0x0003ca                  _loop
-                  0x0003a6                  _main
-                  0x000378                  _send_command
-                  0x000338                  _send_str
-                  0x0003b2                  _setup
+                  0x000440                  _arp_delay_100us
+                  0x000438                  _arp_delay_1ms
+                  0x0003a6                  _delay
+                  0x0002fc                  _init_uart
+                  0x00040e                  _loop
+                  0x0003c0                  _main
+                  0x000396                  _send_command
+                  0x000356                  _send_str
+                  0x0003cc                  _setup
 
 Memory Configuration
 
@@ -238,11 +244,11 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1058
+.debug_info       0x000000       0x109e
  *(.debug_info)
- .debug_info      0x000000        0x518 build/default/debug/project_main.o
- .debug_info      0x000518        0xaa2 build/default/debug/uart_lib.o
- .debug_info      0x000fba         0x9e build/default/debug/delay.o
+ .debug_info      0x000000        0x55e build/default/debug/project_main.o
+ .debug_info      0x00055e        0xaa2 build/default/debug/uart_lib.o
+ .debug_info      0x001000         0x9e build/default/debug/delay.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x223
@@ -251,16 +257,16 @@ __CONFIG1
  .debug_abbrev    0x0000fe        0x111 build/default/debug/uart_lib.o
  .debug_abbrev    0x00020f         0x14 build/default/debug/delay.o
 
-.debug_line       0x000000        0x27e
+.debug_line       0x000000        0x292
  *(.debug_line)
- .debug_line      0x000000        0x11c build/default/debug/project_main.o
- .debug_line      0x00011c        0x128 build/default/debug/uart_lib.o
- .debug_line      0x000244         0x3a build/default/debug/delay.o
+ .debug_line      0x000000        0x131 build/default/debug/project_main.o
+ .debug_line      0x000131        0x127 build/default/debug/uart_lib.o
+ .debug_line      0x000258         0x3a build/default/debug/delay.o
 
-.debug_frame      0x000000         0xde
+.debug_frame      0x000000        0x12c
  *(.debug_frame)
- .debug_frame     0x000000         0x62 build/default/debug/project_main.o
- .debug_frame     0x000062         0x7c build/default/debug/uart_lib.o
+ .debug_frame     0x000000         0xb0 build/default/debug/project_main.o
+ .debug_frame     0x0000b0         0x7c build/default/debug/uart_lib.o
 
 .debug_str        0x000000         0x4a
  *(.debug_str)
@@ -274,12 +280,12 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0x76
+                  0x000000         0x9e
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x2e build/default/debug/project_main.o
+                  0x000000         0x56 build/default/debug/project_main.o
  .debug_pubnames
-                  0x00002e         0x48 build/default/debug/uart_lib.o
+                  0x000056         0x48 build/default/debug/uart_lib.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -904,20 +910,23 @@ __c30_signature
 .config_IESO      0x00abfc          0x2
  .config_IESO     0x00abfc          0x2 build/default/debug/project_main.o
 
-.const              0x82ce         0x10 load address 0x0002ce  
- .const             0x82ce          0x8 build/default/debug/project_main.o
- .const             0x82d6          0x8 build/default/debug/uart_lib.o
+.const              0x82ce         0x2e load address 0x0002ce  
+ .const             0x82ce         0x2a build/default/debug/project_main.o
+ .const             0x82f8          0x4 build/default/debug/uart_lib.o
 
-.text             0x0002de        0x116
- .text            0x0002de         0xc8 build/default/debug/uart_lib.o
-                  0x0002de                  _init_uart
-                  0x000338                  _send_str
-                  0x000378                  _send_command
-                  0x00038c                  _delay
- .text            0x0003a6         0x40 build/default/debug/project_main.o
-                  0x0003a6                  _main
-                  0x0003b2                  _setup
-                  0x0003ca                  _loop
- .text            0x0003e6          0xe build/default/debug/delay.o
-                  0x0003e6                  _arp_delay_1ms
-                  0x0003ee                  _arp_delay_100us
+.text             0x0002fc        0x14a
+ .text            0x0002fc         0xc4 build/default/debug/uart_lib.o
+                  0x0002fc                  _init_uart
+                  0x000356                  _send_str
+                  0x000396                  _send_command
+                  0x0003a6                  _delay
+ .text            0x0003c0         0x78 build/default/debug/project_main.o
+                  0x0003c0                  _main
+                  0x0003cc                  _setup
+                  0x00040e                  _loop
+                  0x00041a                  _AT_SLAVE
+                  0x000420                  _AT_MASTER
+                  0x000426                  _AT_PHONE
+ .text            0x000438          0xe build/default/debug/delay.o
+                  0x000438                  _arp_delay_1ms
+                  0x000440                  _arp_delay_100us
