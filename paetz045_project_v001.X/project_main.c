@@ -90,28 +90,23 @@ void loop(){
 
 
 void AT_SLAVE(){
-    /*
-    AT
-    AT+ROLE0      // Peripheral
-    AT+RESET
-    AT+IMME1      // Wait in AT mode until connected
-    AT+NAMEHM_B   // Optional: rename
-    AT+RESET
-     */
+    send_command("");
+    send_command("ROLE0");          // Peripheral/slave device
+    send_command("RESET");      
+    send_command("IMME1");          // Wait in AT mode until connected
+    send_command("AT+NAMEHM_B");    //rename(not needed)
+    send_command("AT+RESET");
 }
 
 void AT_MASTER(){
     //needs ADDR for SLAVE using AT+ADDR?
+    send_command("ROLE1");      //Master device
+    send_command("RESET");
+    send_command("IMME1");      //sets to AT mode
+    send_command("NAMEHM_A");   //rename(not needed)
+    send_command("RESET");
+    //T+CONA1B2C3D4E5F6 example address with no colons
     
-    /*
-    AT
-    AT+ROLE1            // Central
-    AT+RESET
-    AT+IMME1            // Start in AT mode after reset
-    AT+NAMEHM_A         // Optional naming
-    AT+RESET
-     */
-    //AT+CONA1B2C3D4E5F6 example address with no colons
     //should recieve OK+CONN
     
     //disconnect using AT+DISC
