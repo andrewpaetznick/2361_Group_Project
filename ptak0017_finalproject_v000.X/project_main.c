@@ -31,6 +31,10 @@
 
 #include "uart_lib.h"
 
+#define RXBUFSIZE 20
+volatile char rxbuf[RXBUFSIZE];  /* circular buffer */
+volatile int rxint; /* last character written index */
+
 //1 for master 0 for slave other is phone
 #define ROLE 2
 
@@ -39,6 +43,22 @@ void loop();
 void AT_SLAVE();
 void AT_MASTER();
 void AT_PHONE();
+
+/**
+ * Interrupt needs volatiles that are accessed in main
+ * ISR must be in main for full RX functionality
+ */
+void _ISR _U1RXInterrupt(void)
+{
+    while(U1STAbits.URXDA != 0)
+    {
+        if (rxint >= RXBUFSIZE - 1)
+            rxint = -1;
+        rxbuf[rxint + 1] = U1RXREG;
+        rxint++; /* Do increment to be the last to avoid racing cond. */
+    }
+    IFS0bits.U1RXIF = 0;
+}
 
 int main(void) {
     setup();
