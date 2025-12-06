@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=delay.s project_main.c uart_lib.c
+SOURCEFILES_QUOTED_IF_SPACED=delay.s project_main.c uart_lib.c lcd.c game.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/delay.o ${OBJECTDIR}/project_main.o ${OBJECTDIR}/uart_lib.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/delay.o.d ${OBJECTDIR}/project_main.o.d ${OBJECTDIR}/uart_lib.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/delay.o ${OBJECTDIR}/project_main.o ${OBJECTDIR}/uart_lib.o ${OBJECTDIR}/lcd.o ${OBJECTDIR}/game.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/delay.o.d ${OBJECTDIR}/project_main.o.d ${OBJECTDIR}/uart_lib.o.d ${OBJECTDIR}/lcd.o.d ${OBJECTDIR}/game.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/delay.o ${OBJECTDIR}/project_main.o ${OBJECTDIR}/uart_lib.o
+OBJECTFILES=${OBJECTDIR}/delay.o ${OBJECTDIR}/project_main.o ${OBJECTDIR}/uart_lib.o ${OBJECTDIR}/lcd.o ${OBJECTDIR}/game.o
 
 # Source Files
-SOURCEFILES=delay.s project_main.c uart_lib.c
+SOURCEFILES=delay.s project_main.c uart_lib.c lcd.c game.c
 
 
 
@@ -101,6 +101,18 @@ ${OBJECTDIR}/uart_lib.o: uart_lib.c  .generated_files/flags/default/ad0459aeb7f6
 	@${RM} ${OBJECTDIR}/uart_lib.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  uart_lib.c  -o ${OBJECTDIR}/uart_lib.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/uart_lib.o.d"      -g -D__DEBUG     -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/lcd.o: lcd.c  .generated_files/flags/default/610376cf5693ed682bc94937bc9b89016dce23f0 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/lcd.o.d 
+	@${RM} ${OBJECTDIR}/lcd.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  lcd.c  -o ${OBJECTDIR}/lcd.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/lcd.o.d"      -g -D__DEBUG     -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/game.o: game.c  .generated_files/flags/default/6bb2eff6e21494d71c71cbb9e13bc5073de4ca92 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/game.o.d 
+	@${RM} ${OBJECTDIR}/game.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  game.c  -o ${OBJECTDIR}/game.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/game.o.d"      -g -D__DEBUG     -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
 else
 ${OBJECTDIR}/project_main.o: project_main.c  .generated_files/flags/default/cfd8b0c0cd1dd2ab2dbe22976dc78b775a96febc .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
@@ -113,6 +125,18 @@ ${OBJECTDIR}/uart_lib.o: uart_lib.c  .generated_files/flags/default/5f9fd24c1327
 	@${RM} ${OBJECTDIR}/uart_lib.o.d 
 	@${RM} ${OBJECTDIR}/uart_lib.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  uart_lib.c  -o ${OBJECTDIR}/uart_lib.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/uart_lib.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/lcd.o: lcd.c  .generated_files/flags/default/81eb5067e93a60b7b92008495a03ea43f3a98a6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/lcd.o.d 
+	@${RM} ${OBJECTDIR}/lcd.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  lcd.c  -o ${OBJECTDIR}/lcd.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/lcd.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/game.o: game.c  .generated_files/flags/default/34ac666b2d83983230a974a5e7aae71924f520db .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/game.o.d 
+	@${RM} ${OBJECTDIR}/game.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  game.c  -o ${OBJECTDIR}/game.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/game.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 

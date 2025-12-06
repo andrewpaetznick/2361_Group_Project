@@ -39,6 +39,12 @@ void init_uart(){
     delay(500);
 }
 
+void send_char(char c) {
+    while (U1STAbits.UTXBF == 1);
+    U1TXREG = c;
+    while (!U1STAbits.TRMT);   // wait for shift reg to empty
+}
+
 void send_str(const char* str) {
     for (int i = 0; str[i] != '\0'; i++) {
         //wait until last char is sent

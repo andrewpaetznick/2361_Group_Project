@@ -14,6 +14,7 @@ extern "C" {
 
 
 void init_uart(void);
+void send_char(char c);
 void send_str(const char* str);
 void send_command(const char* command);
 void delay(int ms_delay);
