@@ -20,8 +20,8 @@ void init_uart(){
     
     //PPS Setup copied from Slides
     __builtin_write_OSCCONL(OSCCON & 0xbf); // unlock PPS
-    _RP6R = 0x0003;   // RB6->UART1:U1TX
-    _U1RXR = 8;    // RB8 = RP8 as U1RX
+    _RP3R = 0x0003;   // RB3->UART1:U1TX
+    _U1RXR = 4;    // RB4 = RP4 as U1RX
     __builtin_write_OSCCONL(OSCCON | 0x40); // lock   PPS
     
     //UART Setup
