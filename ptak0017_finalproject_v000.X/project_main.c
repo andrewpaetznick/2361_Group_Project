@@ -28,12 +28,8 @@
 
 #include "xc.h"
 #include <stdio.h>
-
+#include "lcd.h"
 #include "uart_lib.h"
-
-#define RXBUFSIZE 20
-volatile char rxbuf[RXBUFSIZE];  /* circular buffer */
-volatile int rxint; /* last character written index */
 
 //1 for master 0 for slave other is phone
 #define ROLE 2
@@ -43,6 +39,11 @@ void loop();
 void AT_SLAVE();
 void AT_MASTER();
 void AT_PHONE();
+
+#define RXBUFSIZE 20    //currently used at least every ~0.5 sec, so 2 char/sec
+volatile char rxbuf[RXBUFSIZE];  // circular buffer
+volatile int rxint;     // last character written index
+volatile int rxcurr = -1;    // FIFO holds the first out index of data 
 
 /**
  * Interrupt needs volatiles that are accessed in main
@@ -55,10 +56,19 @@ void _ISR _U1RXInterrupt(void)
         if (rxint >= RXBUFSIZE - 1)
             rxint = -1;
         rxbuf[rxint + 1] = U1RXREG;
-        rxint++; /* Do increment to be the last to avoid racing cond. */
+        rxint += 1; // int stores where in the rxbuf the current read is
     }
     IFS0bits.U1RXIF = 0;
 }
+
+char getNextChar() {
+    rxcurr += 1;
+    if(rxcurr <= RXBUFSIZE) {
+        rxcurr = 0;
+    }
+    return rxbuf[rxcurr];
+}
+
 
 int main(void) {
     setup();
@@ -73,21 +83,13 @@ void setup(){
     
     //UART Setup
     init_uart();
-    send_str("HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO ");
-    //sending a basic command
-    char ReceivedChar = 'n';
-    send_command("");
-    delay(500);
-    if (U1STAbits.URXDA == 1) {
-            ReceivedChar = U1RXREG;
-    }
-    send_command("ADDR?");
-    delay(500);
+    //wakes HM10
+    send_str("HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO "
+            "HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO ");
+    //sending sleep command
     send_command("SLEEP");
     delay(500);
-    if (U1STAbits.URXDA == 1) {
-            ReceivedChar = U1RXREG;
-    }
+    
     if(ROLE == 1) {
         AT_MASTER();
     }
@@ -97,7 +99,8 @@ void setup(){
     else {
         AT_PHONE();
     }
-   
+    
+    lcd_init();
 }
 
 void loop(){
@@ -105,39 +108,20 @@ void loop(){
     
     while(1){
         
-        AT_PHONE();
-        //send_str("Connected?")
+        /**
+         * Code if statement for any game
+         * Assuming a unsigned 1 from the phone starts the game
+         * Example is a flashing LED
+         */
+        if(getNextChar == 0x01) {
+            lcd_printChar('R');
+            //flash LED for half a second every received
+            LATBbits.LATB2 = 1;
+            delay(500);
+        }
+        
+        LATBbits.LATB2 = 0;
         delay(500);
         
     }
-}
-
-
-void AT_SLAVE(){
-    send_command("");
-    send_command("ROLE0");          // Peripheral/slave device
-    send_command("RESET");      
-    send_command("IMME1");          // Wait in AT mode until connected
-    send_command("AT+NAMEHM_B");    //rename(not needed)
-    send_command("AT+RESET");
-}
-
-void AT_MASTER(){
-    //needs ADDR for SLAVE using AT+ADDR?
-    send_command("ROLE1");      //Master device
-    send_command("RESET");
-    send_command("IMME1");      //sets to AT mode
-    send_command("NAMEHM_A");   //rename(not needed)
-    send_command("RESET");
-    //T+CONA1B2C3D4E5F6 example address with no colons
-    
-    //should recieve OK+CONN
-    
-    //disconnect using AT+DISC
-}
-
-void AT_PHONE() {
-    send_command("ROLE0");     // peripheral
-    send_command("IMME1");     // start in AT mode, wait for connection
-    send_command("RESET");     //resets and begins waiting
 }
